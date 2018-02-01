@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'app/css/style.css' %}" />
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <title>Fake news detection tool</title>
     </head>
     <body>
         <div class="container">
@@ -34,7 +35,10 @@
                     <div class="col-md-10">
                         <div class="card mb-3">
                             <div class="card-body">
-                                <a  href="{{ article.url }}" class="url" target="_blank">{{ article.url }}</a>
+                                <a  href="{{ article.url }}" class="url d-flex" target="_blank">
+                                    <span class="text-truncate d-block">{{ article.url }}</span>
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
                                 <h3>{{ article.title }}</h3>
                                 <div class="">
                                     <i>Written by {{ authors }} - {{ article.publish_date }}</i>
