@@ -13,3 +13,11 @@
 .total_score{
     font-size: 3rem;
 }
+
+.favicon-container{
+    max-width: 35px;
+}
+
+.favicon{
+    width: 100%;
+}

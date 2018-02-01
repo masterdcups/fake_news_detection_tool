@@ -11,7 +11,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="text-center mb-4">Fake news detection tool</h1>
+                    <h1 class="text-center mb-4">
+                        <span>Fake news detection tool</span>
+                        <small>
+                            <small>
+                                <small class="text-danger">
+                                    <i>Beta</i>
+                                </small>
+                            </small>
+                        </small>
+                    </h1>
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -35,11 +44,17 @@
                     <div class="col-md-10">
                         <div class="card mb-3">
                             <div class="card-body">
-                                <a  href="{{ article.url }}" class="url d-flex" target="_blank">
+                                <a  href="{{ article.url }}" class="url d-flex align-items-center" target="_blank">
                                     <span class="text-truncate d-block">{{ article.url }}</span>
+                                    &nbsp;
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
-                                <h3>{{ article.title }}</h3>
+                                <div class="d-flex align-items-start">
+                                    <div class="favicon-container mr-2">
+                                        <img src="{{ favicon_url }}" alt="" class="favicon">
+                                    </div>
+                                    <h3>{{ article.title }}</h3>
+                                </div>
                                 <div class="">
                                     <i>Written by {{ authors }} - {{ article.publish_date }}</i>
                                 </div>
@@ -72,7 +87,7 @@
 
                                 <div class="row">
                                     <div class="col-md-12 text-center">
-                                        <strong>Article score</strong>
+                                        <strong>Article global score</strong>
                                         <div class="total_score">{{ score }}</div>
                                     </div>
                                 </div>

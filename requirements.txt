@@ -12,6 +12,7 @@ lxml==4.1.1
 newspaper3k==0.2.6
 nltk==3.2.5
 Pillow==5.0.0
+pyfav==0.2
 python-dateutil==2.6.1
 pytz==2017.3
 PyYAML==3.12
