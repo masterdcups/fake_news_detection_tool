@@ -25,7 +25,11 @@ SECRET_KEY = '&za1kyr@^i8dc6u$$^q76=dy3_#t110k)rhp%j7ln_^op&nkgk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'fakenewsdetectiontool.herokuapp.com',
+    '127.0.0.1',
+    'localhost'
+]
 
 
 # Application definition
