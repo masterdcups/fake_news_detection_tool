@@ -2,10 +2,96 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="{% static 'app/style.css' %}" />
+        <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'app/css/style.css' %}" />
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     </head>
     <body>
-        <h1>HelloWorld</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center mb-4">Fake news detection tool</h1>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form action="">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control form-control-lg" value="{{ article.url }}">
+                            <span class="input-group-append">
+                                <button name="button" type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br>
 
+            {% if article != None %}
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <a  href="{{ article.url }}" class="url" target="_blank">{{ article.url }}</a>
+                                <h3>{{ article.title }}</h3>
+                                <div class="">
+                                    <i>Written by {{ authors }} - {{ article.publish_date }}</i>
+                                </div>
+                                <!--<img class="main-img" src="{{ article.top_image }}" alt="">-->
+                                <!--<p class="summary mb-0">{{ article.summary }}</p>-->
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="text-center mb-4">Results</h3>
+                                <div class="row">
+                                    {% for i in params %}
+                                        <div class="col-md-6">
+                                            <ul class="list-unstyled params-list">
+                                                {% for p in i %}
+                                                    <li>
+                                                        <div class="d-flex params-item justify-content-between">
+                                                            <div class="param-name">{{ p.0.capitalize }}</div>
+                                                            <div class="param-score">
+                                                                <strong>{{ p.1 }}</strong>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <strong>Article score</strong>
+                                        <div class="total_score">{{ score }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            {% endif %}
+
+
+        </div>
+
+        <br>
+        <br>
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>

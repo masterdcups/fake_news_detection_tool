@@ -1,0 +1,15 @@
+.container{
+    padding-top: 100px;
+}
+
+.main-img{
+    max-width: 500px;
+}
+
+.params-item {
+    height: 35px;
+}
+
+.total_score{
+    font-size: 3rem;
+}
