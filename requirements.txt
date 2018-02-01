@@ -5,6 +5,7 @@ cssselect==1.0.3
 Django==2.0.2
 feedfinder2==0.0.4
 feedparser==5.2.1
+gunicorn==19.7.1
 idna==2.6
 jieba3k==0.35.1
 lxml==4.1.1
@@ -19,3 +20,4 @@ requests-file==1.4.3
 six==1.11.0
 tldextract==2.2.0
 urllib3==1.22
+whitenoise==3.3.1
