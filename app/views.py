@@ -13,6 +13,10 @@ def score_format(score):
 
 def index(request):
     url = request.GET.get('q', None)
+    article = None
+    params = None
+    score = None
+
     if url != None:
         article = Article(url)
         article.download()
@@ -20,23 +24,18 @@ def index(request):
 
         nltk.download('punkt')
         article.nlp()
+        params = [
+            ['factuality', None, None],
+            ['readability', None, None],
+            ['virality', None, None],
+            ['emotion', None, None],
+            ['opinion', None, None],
+            ['controversy', score_format(Controversy.call(article)), None],
+            ['authority/credibility/trust', None, None],
+            ['technicality', None, None],
+            ['topicality', None, None]
+        ]
 
-    else:
-        article = None
-
-    params = [
-        ['factuality', None, None],
-        ['readability', None, None],
-        ['virality', None, None],
-        ['emotion', None, None],
-        ['opinion', None, None],
-        ['controversy', score_format(Controversy.call(article)), None],
-        ['authority/credibility/trust', None, None],
-        ['technicality', None, None],
-        ['topicality', None, None]
-    ]
-
-    score = None
 
     favicon_url = get_favicon_url(url) if url is not None else None
 
@@ -52,6 +51,9 @@ def index(request):
 
 
 def split_list(list):
+    if list is None:
+        return None
+
     size = len(list)
     p1 = []
     p2 = []
