@@ -19,15 +19,15 @@ def index(request):
         article = None
 
     params = [
-        ['factuality', None],
-        ['readability', None],
-        ['virality', None],
-        ['emotion', None],
-        ['opinion', None],
-        ['controversy', None],
-        ['authority/credibility/trust', None],
-        ['technicality', None],
-        ['topicality', None]
+        ['factuality', None, None],
+        ['readability', None, None],
+        ['virality', None, None],
+        ['emotion', None, None],
+        ['opinion', None, None],
+        ['controversy', None, None],
+        ['authority/credibility/trust', None, None],
+        ['technicality', None, None],
+        ['topicality', None, None]
     ]
 
     score = None
