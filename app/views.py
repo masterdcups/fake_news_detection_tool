@@ -4,6 +4,12 @@ from newspaper import Article
 import nltk
 from pyfav import get_favicon_url
 
+from app.criterias_calculation.controversy import Controversy
+
+
+def score_format(score):
+    return round(score, 2)
+
 
 def index(request):
     url = request.GET.get('q', None)
@@ -24,7 +30,7 @@ def index(request):
         ['virality', None],
         ['emotion', None],
         ['opinion', None],
-        ['controversy', None],
+        ['controversy', score_format(Controversy.call(article))],
         ['authority/credibility/trust', None],
         ['technicality', None],
         ['topicality', None]
