@@ -12,10 +12,11 @@ lxml==4.1.1
 newspaper3k==0.2.6
 nltk==3.2.5
 Pillow==5.0.0
-git+git://github.com/lhl/pyfav
+pyfav==0.2
 python-dateutil==2.6.1
 pytz==2017.3
 PyYAML==3.12
+readability==0.2
 requests==2.18.4
 requests-file==1.4.3
 six==1.11.0
