@@ -4,6 +4,12 @@ from newspaper import Article
 import nltk
 from pyfav import get_favicon_url
 
+from app.criterias_calculation.controversy import Controversy
+
+
+def score_format(score):
+    return round(score, 2)
+
 import sys
 import readability
 
@@ -126,6 +132,10 @@ def calcul_taux_accord(tab_normalized_score, moyenne):
 
 def index(request):
     url = request.GET.get('q', None)
+    article = None
+    params = None
+    score = None
+
     if url != None:
         article = Article(url)
         article.download()
@@ -133,32 +143,24 @@ def index(request):
 
         nltk.download('punkt')
         article.nlp()
+
         results = readability.getmeasures(article.text, lang='en')
         # scoreReadability = affichageResults(results)
         scoreReadability, taux_accord = affichageResults(results)
-        pcread = round(scoreReadability,3), round(taux_accord,3)
-        # -------
-    else:
-        article = None
-        # scoreReadability = None
-        pcread = None
+        pcread = round(scoreReadability, 3), round(taux_accord, 3)
 
+        params = [
+            ['factuality', None, None],
+            ['readability', pcread, None],
+            ['virality', None, None],
+            ['emotion', None, None],
+            ['opinion', None, None],
+            ['controversy', score_format(Controversy.call(article)), None],
+            ['authority/credibility/trust', None, None],
+            ['technicality', None, None],
+            ['topicality', None, None]
+        ]
 
-
-    params = [
-        ['factuality', None],
-        ['readability', pcread],
-        # ['readability', scoreReadability],
-        ['virality', None],
-        ['emotion', None],
-        ['opinion', None],
-        ['controversy', None],
-        ['authority/credibility/trust', None],
-        ['technicality', None],
-        ['topicality', None]
-    ]
-
-    score = None
 
     favicon_url = get_favicon_url(url) if url is not None else None
 
@@ -174,6 +176,9 @@ def index(request):
 
 
 def split_list(list):
+    if list is None:
+        return None
+
     size = len(list)
     p1 = []
     p2 = []

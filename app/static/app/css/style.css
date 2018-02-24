@@ -10,6 +10,10 @@
     height: 35px;
 }
 
+.fa-question-circle{
+    color: #7d7d7d;
+}
+
 .total_score{
     font-size: 3rem;
 }
@@ -20,4 +24,156 @@
 
 .favicon{
     width: 100%;
+}
+
+.param-score{
+    display: flex;
+    align-items: center;
+}
+
+.gauge-container{
+    background: linear-gradient(to right, #4CAF50, #FFEB3B,#F44336);
+    width: 100px;
+    height: 15px;
+    border: 1px #5d5d5d solid;
+    display: flex;
+    border-radius: 5px;
+}
+
+.gauge-range.selected {
+    border-right: 1px solid;
+}
+.gauge-range {
+    height: 100%;
+}
+.gauge-range:not(.selected) {
+    background-color: #ffffff7d;
+    border-radius: 0 4px 4px 0;
+}
+
+
+
+
+
+
+
+/*************/
+/*** GAUGE ***/
+
+
+.circular-gauge *{
+    box-sizing: initial;
+}
+
+.circular-gauge-wrapper {
+  display: table;
+  margin: 0 auto;
+}
+
+.circular-gauge {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #e7e7e7;
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.09), 0 0 35px 5px rgba(255, 255, 255, 0.29);
+  width: 200px;
+  height: 100px;
+  border-radius: 100px 100px 0 0;
+  position: relative;
+  overflow: hidden;
+  /* safari fix */
+  -webkit-transform-style: flat;
+  -webkit-transform: translateZ(0px);
+}
+.circular-gauge.min-scaled {
+  transform: scale(0.5);
+}
+
+.circular-gauge .gauge-center {
+  content: '';
+  color: #fff;
+  width: 60%;
+  height: 60%;
+  background: #15222E;
+  border-radius: 100px 100px 0 0;
+  position: absolute;
+  box-shadow: 0 -13px 15px -10px rgba(0, 0, 0, 0.28);
+  right: 21%;
+  bottom: 0;
+  color: #fff;
+}
+.circular-gauge .gauge-center::before {
+  content: attr(data-score);
+  font-size: 2em;
+  width: 100%;
+  padding: 10px 0 0 0;
+  text-align: center;
+  float: left;
+  -webkit-font-smoothing: antialiased;
+}
+/*.circular-gauge .gauge-center::after {
+  content: 'units';
+  width: 100%;
+  float: left;
+  opacitY: .6;
+  text-align: center;
+}*/
+
+.circular-gauge .needle {
+  width: 78px;
+  height: 7px;
+  background: #15222E;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 100%;
+  border-top-right-radius: 5px;
+  position: absolute;
+  bottom: 4px;
+  left: 20px;
+  transform-origin: 100% 4px;
+  animation: speed 5s infinite;
+  box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.38);
+}
+
+.circular-gauge .slice-colors .st {
+  position: absolute;
+  bottom: 0;
+  width: 60px;
+  height: 0;
+  border-bottom: 80px solid #000;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+}
+.circular-gauge .slice-colors .st.slice-item:nth-child(1) {
+  border-bottom-color: #1eaa59;
+  left: -2px;
+}
+.circular-gauge .slice-colors .st.slice-item:nth-child(2) {
+  border-bottom-color: #9baa1e;
+  transform: rotate(135deg);
+  transform-origin: right;
+  top: 12px;
+  left: -65px;
+}
+.circular-gauge .slice-colors .st.slice-item:nth-child(3) {
+  border-bottom-color: #f1c40f;
+  transform: rotate(179deg);
+  transform-origin: right;
+  top: -20px;
+  left: -62px;
+  border-bottom-width: 90px;
+  border-left-width: 45px;
+  border-right-width: 45px;
+  width: 18px;
+}
+.circular-gauge .slice-colors .st.slice-item:nth-child(4) {
+  border-bottom-color: #e67e22;
+  transform: rotate(219deg);
+  transform-origin: right;
+  top: -23px;
+  left: 43px;
+}
+.circular-gauge .slice-colors .st.slice-item:nth-child(5) {
+  border-bottom-color: #E84C3D;
+  transform: rotate(240deg);
+  transform-origin: right;
+  right: 52px;
 }
