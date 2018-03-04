@@ -5,6 +5,7 @@ import nltk
 from pyfav import get_favicon_url
 
 from app.criterias_calculation.controversy import Controversy
+from app.criterias_calculation.readability import Readability
 
 
 def score_format(score):
@@ -26,7 +27,7 @@ def index(request):
         article.nlp()
         params = [
             ['factuality', None, None],
-            ['readability', None, None],
+            ['readability', score_format(Readability.get_score(article.text)), None],
             ['virality', None, None],
             ['emotion', None, None],
             ['opinion', None, None],
