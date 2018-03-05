@@ -206,4 +206,4 @@ class Readability:
         results = readability.getmeasures(text, lang='en')
         mediane, taux_accord = calcul_readability(results)
         print(mediane, "(", taux_accord, ")\n-------------------------------------------------------------")
-        return mediane
+        return mediane, taux_accord

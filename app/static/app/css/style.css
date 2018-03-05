@@ -40,6 +40,10 @@
     border-radius: 5px;
 }
 
+.gauge-container.reverse{
+    background: linear-gradient(to right, #F44336, #FFEB3B, #4CAF50);
+}
+
 .gauge-range.selected {
     border-right: 1px solid;
 }

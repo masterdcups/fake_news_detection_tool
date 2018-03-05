@@ -119,11 +119,13 @@
                                                     <div class="param-score">
                                                         <strong>{{ p.1 }} %</strong>
                                                         &nbsp;&nbsp;&nbsp;
-                                                        <div class="gauge-container">
-                                                            <div class="gauge-range selected"
-                                                                 style="width: {{ p.1 }}%"></div>
-                                                            <div class="gauge-range"
-                                                                 style="width: calc(100% - {{ p.1 }}%)"></div>
+                                                        {% if p.3 == 1 %}
+                                                            <div class="gauge-container reverse">
+                                                        {% else %}
+                                                            <div class="gauge-container">
+                                                        {% endif %}
+                                                            <div class="gauge-range selected" style="width: {{ p.1 }}%"></div>
+                                                            <div class="gauge-range" style="width: calc(100% - {{ p.1 }}%)"></div>
                                                         </div>
                                                     </div>
                                                 </div>
