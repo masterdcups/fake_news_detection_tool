@@ -32,15 +32,15 @@ def index(request):
         controversy_score = Controversy.call(article)
 
         params = [
-            ['factuality', None, None, 1],
-            ['readability', score_format(readability_score), "Taux d'accord : {}%".format(score_format(readability_taux_accord*100.)), 1],
-            ['virality', None, None, 1],
-            ['emotion', None, None, 0],
-            ['opinion', None, None, 0],
-            ['controversy', score_format(controversy_score), None, 0],
-            ['authority/credibility/trust', None, None, 1],
-            ['technicality', None, None, 1],
-            ['topicality', None, None, 1]
+            ['factuality', None, None],
+            ['readability', score_format(readability_score), "Taux d'accord : {}%".format(score_format(readability_taux_accord*100.))],
+            ['virality', None, None],
+            ['emotion', None, None],
+            ['opinion', None, None],
+            ['controversy', score_format(controversy_score), None],
+            ['authority/credibility/trust', None, None],
+            ['technicality', None, None],
+            ['topicality', None, None]
         ]
 
         # todo : faire un truc plus générique avec quand params[3] = 1 faire 100-params[1]

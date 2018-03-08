@@ -58,54 +58,21 @@
                         <div class="">
                             <i>Written by {{ authors }} - {{ article.publish_date }}</i>
                         </div>
-                        <!--<img class="main-img" src="{{ article.top_image }}" alt="">-->
-                        <!--<p class="summary mb-0">{{ article.summary }}</p>-->
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-body">
-                        <!--<h3 class="text-center mb-4">Results</h3>-->
-
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <!--<strong>Article global score</strong>-->
-                                <!--<div class="total_score">{{ score }}</div>-->
-
-                                <div class="circular-gauge-wrapper">
-                                    <div class="circular-gauge">
-                                    <div class="slice-colors">
-                                        <div class="st slice-item"></div>
-                                        <div class="st slice-item"></div>
-                                        <div class="st slice-item"></div>
-                                        <div class="st slice-item"></div>
-                                        <div class="st slice-item"></div>
-                                    </div>
-                                    <div class="needle" style="transform: rotate(calc({{ score }}deg / 100 * 180));"></div>
-                                    <div class="gauge-center" data-score="{{ score }}"></div>
-                                </div>
-                                </div>
-
-                                <hr style="margin: 0 auto" width="80%">
-                            </div>
-                        </div>
-
-                        <br>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h4 class="text-center mb-3">Detailed results</h4>
-                            </div>
-                        </div>
+                        <h3 class="text-center mb-3">Results</h3>
 
                         <div class="row">
 
                             {% for i in params %}
-                                <div class="col-md-6">
+                                <div class="col-md-6 px-4">
                                     <ul class="list-unstyled params-list">
                                         {% for p in i %}
                                             <li>
-                                                <div class="d-flex params-item justify-content-between">
+                                                <div class="d-flex params-item justify-content-between align-items-center">
                                                     <div class="param-name">
                                                         <span>{{ p.0.capitalize }}</span>
                                                         &nbsp;
@@ -119,13 +86,9 @@
                                                     <div class="param-score">
                                                         <strong>{{ p.1 }} %</strong>
                                                         &nbsp;&nbsp;&nbsp;
-                                                        {% if p.3 == 1 %}
-                                                            <div class="gauge-container reverse">
-                                                        {% else %}
-                                                            <div class="gauge-container">
-                                                        {% endif %}
+
+                                                        <div class="gauge-container">
                                                             <div class="gauge-range selected" style="width: {{ p.1 }}%"></div>
-                                                            <div class="gauge-range" style="width: calc(100% - {{ p.1 }}%)"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -135,17 +98,11 @@
                                 </div>
                             {% endfor %}
                         </div>
-
-
                     </div>
                 </div>
-
-
             </div>
         </div>
     {% endif %}
-
-
 </div>
 
 <br>

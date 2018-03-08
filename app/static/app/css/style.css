@@ -32,23 +32,20 @@
 }
 
 .gauge-container{
-    background: linear-gradient(to right, #4CAF50, #FFEB3B,#F44336);
     width: 100px;
-    height: 15px;
-    border: 1px #5d5d5d solid;
+    height: 13px;
+    border: 1px #b7b7b7 solid;
     display: flex;
-    border-radius: 5px;
-}
-
-.gauge-container.reverse{
-    background: linear-gradient(to right, #F44336, #FFEB3B, #4CAF50);
+    border-radius: 6px;
+    overflow: hidden;
 }
 
 .gauge-range.selected {
-    border-right: 1px solid;
+    background: #007bff;
 }
 .gauge-range {
     height: 100%;
+    border-radius: 6px 0px 0px 6px;
 }
 .gauge-range:not(.selected) {
     background-color: #ffffff7d;
