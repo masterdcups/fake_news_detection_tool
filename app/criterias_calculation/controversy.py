@@ -68,7 +68,7 @@ class Controversy:
         return c.score(nb_controversial_topics, tokens)
 
     def score(self, nb_controversial_topics, all_tokens):
-        return nb_controversial_topics / len(all_tokens) * 1000
+        return nb_controversial_topics / len(all_tokens) * 1000 * 2
 
     def get_proper_nouns(self):
 
