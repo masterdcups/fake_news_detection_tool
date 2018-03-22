@@ -64,6 +64,14 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="text-center mb-3">Results</h3>
+                        <div class="row">
+                            <div class="col-md-12 px-4">
+                                <p class="mb-1">Please choose criterias you are intersted in to calculate an appropriate global score for your article</p>
+                                <button class="btn btn-primary btn-sm" data-checked="1" id="select_all_checkbox">Select all</button>
+                                <button class="btn btn-primary btn-sm" data-checked="1" id="deselect_all_checkbox">Deselect all</button>
+                                <hr class="my-2">
+                            </div>
+                        </div>
 
                         <div class="row">
 
@@ -72,17 +80,23 @@
                                     <ul class="list-unstyled params-list">
                                         {% for p in i %}
                                             <li>
-                                                <div class="d-flex params-item justify-content-between align-items-center">
-                                                    <div class="param-name">
-                                                        <span>{{ p.0.capitalize }}</span>
-                                                        &nbsp;
-                                                        {% if p.2 != None %}
-                                                            <span data-toggle="tooltip" data-placement="top"
-                                                                  title="{{ p.2 }}">
-                                                                        <i class="fas fa-question-circle"></i>
-                                                                    </span>
-                                                        {% endif %}
+                                                <div class="d-flex params-item align-items-center justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <input type="checkbox" class="criterion_checkbox" name="criterion[{{ p.0 }}]" value="{{ p.1 }}" id="criterion_{{ p.0 }}" checked="checked">
+                                                        &nbsp;&nbsp;
+                                                        <div class="param-name">
+                                                            <label for="criterion_{{ p.0 }}" class="mb-0">{{ p.0.capitalize }}</label>
+                                                            &nbsp;
+                                                            {% if p.2 != None %}
+                                                                <span data-toggle="tooltip" data-placement="top"
+                                                                      title="{{ p.2 }}">
+                                                                            <i class="fas fa-question-circle"></i>
+                                                                        </span>
+                                                            {% endif %}
+                                                        </div>
                                                     </div>
+
+
                                                     <div class="param-score">
                                                         <strong>{{ p.1 }} %</strong>
                                                         &nbsp;&nbsp;&nbsp;
@@ -91,6 +105,7 @@
                                                             <div class="gauge-range selected" style="width: {{ p.1 }}%"></div>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                             </li>
                                         {% endfor %}
@@ -98,6 +113,19 @@
                                 </div>
                             {% endfor %}
                         </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <h3>Global score</h3>
+                                    <div id="global_score">
+                                        {{ score }} %
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

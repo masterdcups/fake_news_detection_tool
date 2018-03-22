@@ -38,7 +38,7 @@ def index(request):
             ['emotion', None, None],
             ['opinion', None, None],
             ['controversy', score_format(controversy_score), None],
-            ['authority/credibility/trust', None, None],
+            ['credibility', None, None],
             ['technicality', None, None],
             ['topicality', None, None]
         ]
