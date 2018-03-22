@@ -8,6 +8,7 @@ from pyfav import get_favicon_url
 
 from app.criterias_calculation.controversy import Controversy
 from app.criterias_calculation.readability import Readability
+from app.criterias_calculation.technicality import Technicality
 
 
 def score_format(score):
@@ -30,6 +31,7 @@ def index(request):
 
         readability_score, readability_taux_accord = Readability.get_score(article.text)
         controversy_score = Controversy.call(article)
+        technicality_score = Technicality.getTechnicalityScore(article.text)
 
         params = [
             ['factuality', None, None],
@@ -39,7 +41,7 @@ def index(request):
             ['opinion', None, None],
             ['controversy', score_format(controversy_score), None],
             ['credibility', None, None],
-            ['technicality', None, None],
+            ['technicality', score_format(technicality_score), None],
             ['topicality', None, None]
         ]
 
