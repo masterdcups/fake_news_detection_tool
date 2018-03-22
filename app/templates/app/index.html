@@ -63,13 +63,11 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="text-center mb-3">Results</h3>
+
                         <div class="row">
-                            <div class="col-md-12 px-4">
-                                <p class="mb-1">Please choose criterias you are intersted in to calculate an appropriate global score for your article</p>
-                                <button class="btn btn-primary btn-sm" data-checked="1" id="select_all_checkbox">Select all</button>
-                                <button class="btn btn-primary btn-sm" data-checked="1" id="deselect_all_checkbox">Deselect all</button>
-                                <hr class="my-2">
+                            <div class="col-md-12 px-4 mb-3">
+                                <h3 class="text-center mb-3">Results</h3>
+                                <h6 class="mb-0">Please choose criterias you are interested in to calculate an appropriate global score for your article.</h6>
                             </div>
                         </div>
 
@@ -112,6 +110,13 @@
                                     </ul>
                                 </div>
                             {% endfor %}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 px-4">
+                                <button class="btn btn-secondary btn-sm" data-checked="1" id="select_all_checkbox">Select all</button>
+                                <button class="btn btn-secondary btn-sm" data-checked="1" id="deselect_all_checkbox">Deselect all</button>
+                            </div>
                         </div>
 
 

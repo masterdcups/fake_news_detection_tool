@@ -21,7 +21,7 @@ function update_score(){
       criterions.push($(this).val())
     });
     var mean = criterions_mean(criterions);
-    $('#global_score').text(mean+' %')
+    $('#global_score').text(Math.round(mean * 100) / 100+' %')
 }
 
 $('.criterion_checkbox').on('change', function(){

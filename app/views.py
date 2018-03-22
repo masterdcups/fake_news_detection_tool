@@ -36,7 +36,6 @@ def index(request):
         params = [
             ['factuality', None, None],
             ['readability', score_format(readability_score), "Taux d'accord : {}%".format(score_format(readability_taux_accord*100.))],
-            ['virality', None, None],
             ['emotion', None, None],
             ['opinion', None, None],
             ['controversy', score_format(controversy_score), None],
@@ -46,7 +45,7 @@ def index(request):
         ]
 
         # todo : faire un truc plus générique avec quand params[3] = 1 faire 100-params[1]
-        score = score_format((100.-readability_score + controversy_score) / 2)
+        score = score_format((readability_score + controversy_score + technicality_score) / 3)
 
 
     favicon_url = get_favicon_url(url) if url is not None else None
