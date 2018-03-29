@@ -9,6 +9,7 @@ from pyfav import get_favicon_url
 from app.criterias_calculation.controversy import Controversy
 from app.criterias_calculation.readability import Readability
 from app.criterias_calculation.technicality import Technicality
+from app.criterias_calculation.trust import Trust
 
 
 def score_format(score):
@@ -32,20 +33,21 @@ def index(request):
         readability_score, readability_taux_accord = Readability.get_score(article.text)
         controversy_score = Controversy.call(article)
         technicality_score = Technicality.getTechnicalityScore(article.text)
+        trust_score, trust_confidence = Trust.call(url)
 
         params = [
             ['factuality', None, None],
-            ['readability', score_format(readability_score), "Taux d'accord : {}%".format(score_format(readability_taux_accord*100.))],
+            ['readability', score_format(readability_score), "Agreement rate : {}%".format(score_format(readability_taux_accord*100.))],
             ['emotion', None, None],
             ['opinion', None, None],
             ['controversy', score_format(controversy_score), None],
-            ['credibility', None, None],
+            ['trust', score_format(trust_score), "Confidence score : {}".format(score_format(trust_confidence))],
             ['technicality', score_format(technicality_score), None],
             ['topicality', None, None]
         ]
 
         # todo : faire un truc plus générique avec quand params[3] = 1 faire 100-params[1]
-        score = score_format((readability_score + controversy_score + technicality_score) / 3)
+        score = score_format((readability_score + controversy_score + technicality_score + trust_score) / 4)
 
 
     favicon_url = get_favicon_url(url) if url is not None else None

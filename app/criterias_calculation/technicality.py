@@ -65,7 +65,6 @@ def traitementCritere(listeCoupleMotTag, regExprValides, stringTags):
 
     while (stringTags != "" and regExprValides != []):
         regExprCourante = regExprValides[0]
-        print(regExprCourante)
         #indice de string du debut de la regExprValide
         indice = stringTags.find(regExprCourante)
         #liste de doublet pour recuperer les mots
