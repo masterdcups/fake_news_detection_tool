@@ -17,6 +17,7 @@ python-dateutil==2.6.1
 pytz==2017.3
 PyYAML==3.12
 readability==0.2
+numpy==1.14.1
 requests==2.18.4
 requests-file==1.4.3
 six==1.11.0
