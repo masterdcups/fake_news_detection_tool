@@ -8,6 +8,7 @@ from pyfav import get_favicon_url
 
 from app.criterias_calculation.controversy import Controversy
 from app.criterias_calculation.readability import Readability
+from app.criterias_calculation.score_normalization import ScoreNormalization
 from app.criterias_calculation.technicality import Technicality
 from app.criterias_calculation.trust import Trust
 
@@ -37,12 +38,12 @@ def index(request):
 
         params = [
             ['factuality', None, None],
-            ['readability', score_format(readability_score), "Agreement rate : {}%".format(score_format(readability_taux_accord*100.))],
+            ['readability', ScoreNormalization.new('readability', score_format(readability_score)), "Agreement rate : {}%".format(score_format(readability_taux_accord*100.))],
             ['emotion', None, None],
             ['opinion', None, None],
-            ['controversy', score_format(controversy_score), None],
-            ['trust', score_format(trust_score), "Confidence score : {}".format(score_format(trust_confidence))],
-            ['technicality', score_format(technicality_score), None],
+            ['controversy', ScoreNormalization.new('controversy', score_format(controversy_score)), None],
+            ['trust', score_format(trust_score), "Confidence score : {}%".format(score_format(trust_confidence))],
+            ['technicality', ScoreNormalization.new('technicality', score_format(technicality_score)), None],
             ['topicality', None, None]
         ]
 
@@ -79,3 +80,4 @@ def split_list(list):
         p2 = list[int((size + 1) / 2):]
 
     return [p1, p2]
+

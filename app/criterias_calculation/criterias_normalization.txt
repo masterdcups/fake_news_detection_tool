@@ -1,0 +1,8 @@
+factuality	None	None
+readability	34.0	50.0
+emotion	None	None
+opinion	None	None
+controversy	0.0	0.04
+trust	None	None
+technicality	0.0	1.83
+topicality	None	None
