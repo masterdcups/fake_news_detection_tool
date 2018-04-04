@@ -137,7 +137,7 @@ class Technicality:
     def __init__(self, text):
         self.text = text
 
-    def getTechnicalityScore(text):
+    def get_score(text):
         return score(text)
 
 # ---

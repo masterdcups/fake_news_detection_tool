@@ -1,33 +1,50 @@
+from pathlib import Path
 
 
 class ScoreNormalization:
 
-    @staticmethod
-    def new(criterion, score):
-        params = load()
-        params = replace_score(params, criterion, score)
-        save(params)
-        return round(normalize(params, criterion, score), 2)
-
-
-def save(params):
     file_name = 'app/criterias_calculation/criterias_normalization.txt'
 
-    f = open(file_name, "w")
-    for param in params:
-        f.write("{}\t{}\t{}\n".format(param[0], param[1], param[2]))
+    def __init__(self):
+        self.params = []
+        self.load_params()
 
+    def get_normalize_score(self, criterion, score):
+        self.params = replace_score(self.params, criterion, score)
+        return round(normalize(self.params, criterion, score), 2)
 
-def load():
-    file_name = 'app/criterias_calculation/criterias_normalization.txt'
-    params = []
+    def save(self):
+        f = open(self.file_name, "w")
+        for param in self.params:
+            f.write("{}\t{}\t{}\n".format(param[0], param[1], param[2]))
+        f.close()
 
-    f = open(file_name, "r")
-    for line in f:
-        tokens = line.split()
-        params.append([tokens[0], None if tokens[1] == 'None' else float(tokens[1]),  None if tokens[2] == 'None' else float(tokens[2])])
+    def load_params(self):
+        my_file = Path(self.file_name)
+        if not my_file.is_file():
+            # if the file does not exist
+            self.create_file()
 
-    return params
+        f = open(self.file_name, "r")
+        self.params = []
+        for line in f:
+            tokens = line.split()
+            self.params.append([tokens[0], None if tokens[1] == 'None' else float(tokens[1]),
+                           None if tokens[2] == 'None' else float(tokens[2])])
+        f.close()
+
+    def create_file(self):
+        self.params = [
+            ['factuality', None, None],
+            ['readability', None, None],
+            ['emotion', None, None],
+            ['opinion', None, None],
+            ['controversy', None, None],
+            ['trust', None, None],
+            ['technicality', None, None],
+            ['topicality', None, None]
+        ]
+        self.save()
 
 
 def replace_score(params, criterion, score):

@@ -1,20 +1,10 @@
-import functools
-
 from django.http import HttpResponse
 from django.template import loader
 from newspaper import Article
 import nltk
 from pyfav import get_favicon_url
 
-from app.criterias_calculation.controversy import Controversy
-from app.criterias_calculation.readability import Readability
-from app.criterias_calculation.score_normalization import ScoreNormalization
-from app.criterias_calculation.technicality import Technicality
-from app.criterias_calculation.trust import Trust
-
-
-def score_format(score):
-    return round(score, 2)
+from app.criterias_calculation.score_calculation import ScoreCalculation
 
 
 def index(request):
@@ -23,7 +13,7 @@ def index(request):
     params = None
     score = None
 
-    if url != None:
+    if url is not None:
         article = Article(url)
         article.download()
         article.parse()
@@ -31,32 +21,16 @@ def index(request):
         nltk.download('punkt')
         article.nlp()
 
-        readability_score, readability_taux_accord = Readability.get_score(article.text)
-        controversy_score = Controversy.call(article)
-        technicality_score = Technicality.getTechnicalityScore(article.text)
-        trust_score, trust_confidence = Trust.call(url)
-
-        params = [
-            ['factuality', None, None],
-            ['readability', ScoreNormalization.new('readability', score_format(readability_score)), "Agreement rate : {}%".format(score_format(readability_taux_accord*100.))],
-            ['emotion', None, None],
-            ['opinion', None, None],
-            ['controversy', ScoreNormalization.new('controversy', score_format(controversy_score)), None],
-            ['trust', score_format(trust_score), "Confidence score : {}%".format(score_format(trust_confidence))],
-            ['technicality', ScoreNormalization.new('technicality', score_format(technicality_score)), None],
-            ['topicality', None, None]
-        ]
-
-        # todo : faire un truc plus générique avec quand params[3] = 1 faire 100-params[1]
-        score = score_format((readability_score + controversy_score + technicality_score + trust_score) / 4)
-
+        score_calc = ScoreCalculation(article, url)
+        params = score_calc.get_normalized_params()
+        score = score_calc.get_global_score()
 
     favicon_url = get_favicon_url(url) if url is not None else None
 
     template = loader.get_template('app/index.html')
     context = {
         'article': article,
-        'authors': ', '.join(article.authors) if article != None else '',
+        'authors': ', '.join(article.authors) if article is not None else '',
         'params': split_list(params),
         'score': score,
         'favicon_url': favicon_url
@@ -64,20 +38,22 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-def split_list(list):
-    if list is None:
+def split_list(list_item):
+    assert type(list_item) == list
+
+    if list_item is None:
         return None
 
-    size = len(list)
+    size = len(list_item)
     p1 = []
     p2 = []
 
     if size % 2 == 0:
-        p1 = list[:int(size / 2)]
-        p2 = list[int(size / 2):]
+        p1 = list_item[:int(size / 2)]
+        p2 = list_item[int(size / 2):]
     else:
-        p1 = list[:int((size + 1) / 2)]
-        p2 = list[int((size + 1) / 2):]
+        p1 = list_item[:int((size + 1) / 2)]
+        p2 = list_item[int((size + 1) / 2):]
 
     return [p1, p2]
 

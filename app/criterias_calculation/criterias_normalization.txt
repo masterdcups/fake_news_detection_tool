@@ -2,7 +2,7 @@ factuality	None	None
 readability	34.0	50.0
 emotion	None	None
 opinion	None	None
-controversy	0.0	0.04
+controversy	0.01564245810055866	0.038348082595870206
 trust	None	None
-technicality	0.0	1.83
+technicality	0.0	1.9230769230769231
 topicality	None	None
