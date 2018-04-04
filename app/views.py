@@ -39,7 +39,7 @@ def index(request):
 
 
 def split_list(list_item):
-    assert type(list_item) == list
+    assert type(list_item) == list or list_item is None
 
     if list_item is None:
         return None
