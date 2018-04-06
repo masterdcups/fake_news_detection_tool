@@ -20,19 +20,23 @@ class ScoreCalculation:
         self.params = [
             ['factuality', None, None, True],
             ['readability', readability_score,
-             "Agreement rate : {}%".format(score_format(readability_taux_accord * 100.)), True],
+             "Agreement rate : {}%".format(score_format(readability_taux_accord)), False],
             ['emotion', None, None, True],
             ['opinion', None, None, True],
             ['controversy', controversy_score, None, True],
-            ['trust', score_format(trust_score), "Confidence score : {}%".format(score_format(trust_confidence)), False],
+            ['trust', score_format(trust_score),
+             "Confidence score : {}%".format(score_format(trust_confidence)), False],
             ['technicality', technicality_score, None, True],
             ['topicality', None, None, True]
         ]
 
     def get_normalized_params(self):
+        """
+        Return an params array with normalized score
+        :return: params array with each item on the form :
+                 [criterion_name, score, description, to_be_normalized]
+        """
         score_normalization = ScoreNormalization()
-
-        print(self.params)
 
         for p in self.params:
             if p[3] and p[1] is not None:
@@ -40,14 +44,16 @@ class ScoreCalculation:
 
         score_normalization.save()
 
-        print(self.params)
-
         return self.params
 
     def get_global_score(self):
-        print(self.params)
+        """
+        To be called after get_normalized_params()
+        :return: Return the global score of all criterions
+        """
         score = 0
         nb_criterias_implemented = 0
+
         for p in self.params:
             if p[1] is not None:
                 score += p[1]
