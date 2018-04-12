@@ -95,7 +95,7 @@ class FactualityOpinion:
         fact_sents = 0.
         opinion_sents = 0.
         # Preprocess using spacy
-        nlp = spacy.load('en_core_web_lg')
+        nlp = spacy.load('en_core_web_md')
         parsed_article = divide_into_sentences(nlp(article_text))
         nb_sents = len(parsed_article)
 

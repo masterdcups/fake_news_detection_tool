@@ -4,6 +4,7 @@ from app.criterias_calculation.factuality_opinion import FactualityOpinion
 from app.criterias_calculation.readability import Readability
 from app.criterias_calculation.score_normalization import ScoreNormalization
 from app.criterias_calculation.technicality import Technicality
+from app.criterias_calculation.topicality import Topicality
 from app.criterias_calculation.trust import Trust
 
 
@@ -20,6 +21,7 @@ class ScoreCalculation:
         trust_score, trust_confidence = Trust.call(url)
         fact_score, opinion_score, fact_sents, opinion_sents, nb_sents = FactualityOpinion.classify(article.text)
         emotion_score, nb_neg, nb_pos = Emotion.get_score(article.text)
+        topicality_score = None #Topicality.get_score(article.keywords)
 
         self.params = [
             ['factuality', fact_score, None, True],
@@ -31,7 +33,7 @@ class ScoreCalculation:
             ['trust', score_format(trust_score),
              "Confidence score : {}%".format(score_format(trust_confidence)), False],
             ['technicality', technicality_score, None, True],
-            ['topicality', None, None, True]
+            ['topicality', topicality_score, None, True]
         ]
 
     def get_normalized_params(self):
