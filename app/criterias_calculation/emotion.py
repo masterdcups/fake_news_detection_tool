@@ -9,7 +9,7 @@ class Emotion:
         self.text = text
 
     def get_score(article):
-        nltk.download('averaged_perceptron_tagger')
+        #nltk.download('averaged_perceptron_tagger')
 
         # version phrases
         cpt_neg = 0

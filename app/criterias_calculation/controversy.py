@@ -43,9 +43,9 @@ def get_proper_nouns(tokens):
     else:
         ssl._create_default_https_context = _create_unverified_https_context
 
-    nltk.download('averaged_perceptron_tagger')
-    nltk.download('maxent_ne_chunker')
-    nltk.download('words')
+    #nltk.download('averaged_perceptron_tagger')
+    #nltk.download('maxent_ne_chunker')
+    #nltk.download('words')
     tagged_tokens = pos_tag(tokens)
 
     res = []

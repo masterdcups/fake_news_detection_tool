@@ -18,9 +18,6 @@ def index(request):
         article.download()
         article.parse()
 
-        nltk.download('punkt')
-        article.nlp()
-
         score_calc = ScoreCalculation(article, url)
         params = score_calc.get_normalized_params()
         score = score_calc.get_global_score()
