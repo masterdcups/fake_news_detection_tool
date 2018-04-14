@@ -1,4 +1,3 @@
-import nltk
 import re
 import unicodedata
 import ssl
@@ -20,7 +19,7 @@ def parameterize(string_to_clean, sep='-'):
 
 def get_controversial_tokens():
     controversial_tokens = []
-    filename = "app/criterias_calculation/controversial_topics.txt"
+    filename = "criterias_calculation/controversial_topics.txt"
 
     f = open(filename, "r")
     for line in f:
@@ -43,9 +42,6 @@ def get_proper_nouns(tokens):
     else:
         ssl._create_default_https_context = _create_unverified_https_context
 
-    #nltk.download('averaged_perceptron_tagger')
-    #nltk.download('maxent_ne_chunker')
-    #nltk.download('words')
     tagged_tokens = pos_tag(tokens)
 
     res = []

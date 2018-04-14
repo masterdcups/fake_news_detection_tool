@@ -99,7 +99,7 @@ class FactualityOpinion:
         parsed_article = divide_into_sentences(nlp(article_text))
         nb_sents = len(parsed_article)
 
-        classifier = load_pickle('app/criterias_calculation/models/nn_classifier.pickle')
+        classifier = load_pickle('criterias_calculation/models/nn_classifier.pickle')
 
         for sentence in parsed_article:
             # Get features

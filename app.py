@@ -1,14 +1,14 @@
-from django.http import HttpResponse
-from django.template import loader
+from flask import Flask, render_template, request
 from newspaper import Article
-import nltk
 from pyfav import get_favicon_url
+from criterias_calculation.score_calculation import ScoreCalculation
 
-from app.criterias_calculation.score_calculation import ScoreCalculation
+app = Flask(__name__)
 
 
-def index(request):
-    url = request.GET.get('q', None)
+@app.route('/')
+def index():
+    url = request.args.get('q')
     article = None
     params = None
     score = None
@@ -24,7 +24,6 @@ def index(request):
 
     favicon_url = get_favicon_url(url) if url is not None else None
 
-    template = loader.get_template('app/index.html')
     context = {
         'article': article,
         'authors': ', '.join(article.authors) if article is not None else '',
@@ -32,7 +31,12 @@ def index(request):
         'score': score,
         'favicon_url': favicon_url
     }
-    return HttpResponse(template.render(context, request))
+    return render_template('index.html',
+                           article=article,
+                           authors=', '.join(article.authors) if article is not None else '',
+                           params=split_list(params),
+                           score=score,
+                           favicon_url=favicon_url)
 
 
 def split_list(list_item):
@@ -53,4 +57,8 @@ def split_list(list_item):
         p2 = list_item[int((size + 1) / 2):]
 
     return [p1, p2]
+
+
+if __name__ == '__main__':
+    app.run()
 

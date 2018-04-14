@@ -1,8 +1,7 @@
 # coding=utf-8
 
-import readability
+import readability as rd
 import numpy as np
-from math import *
 
 # ---------- Taux d'accord ----------
 
@@ -134,7 +133,7 @@ def calcul_kirppendorf(tab_normalized_score, mediane):
 # lecture fichier echelle
 def lecture_fich():
     tab_min_max = []
-    file = open("app/criterias_calculation/readability_scale.txt", "r").read()
+    file = open("criterias_calculation/readability_scale.txt", "r").read()
     tab = file.split("]")
     for i in range(7):
         tab[i] = (tab[i].replace(" ", "")).replace("[", "")
@@ -178,7 +177,7 @@ def maj_tabminmax(tab_min_max, read_grades_tab):
             tab_min_max[i][2] = result
     # print(tab_min_max)
 
-    file = open("app/criterias_calculation/readability_scale.txt", "w")
+    file = open("criterias_calculation/readability_scale.txt", "w")
     file.write(str(tab_min_max))
     file.close()
 
@@ -252,14 +251,14 @@ def calcul_readability(results):
 
 # renvoie le taux de readability d'un texte
 # plus le taux est élevé plus le texte est facile à lire
-class Readability:
+class ReadabilityC:
 
     def __init__(self, text):
         self.text = text
 
     def get_score(text):
         print("------------READABILITY -------------------------------------")
-        results = readability.getmeasures(text, lang='en')
+        results = rd.getmeasures(text, lang='en')
         mediane, taux_accord = calcul_readability(results)
         print(mediane, "(", taux_accord, ")\n-------------------------------------------------------------")
         return mediane, taux_accord

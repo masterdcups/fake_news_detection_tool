@@ -18,7 +18,8 @@ class SQLManager:
 
     def __init__(self):
         # Connecting to the database file
-        conn = sqlite3.connect('app/criterias_calculation/db.sqlite3')
+        filename = 'criterias_calculation/db.sqlite3'
+        conn = sqlite3.connect(filename)
         c = conn.cursor()
         self.db_connector = conn
         self.db_cursor = c

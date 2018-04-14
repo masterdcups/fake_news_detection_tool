@@ -1,6 +1,5 @@
 import nltk
-from statistics import mean
-from app.criterias_calculation.senticnet5 import senticnet
+from .senticnet5 import senticnet
 
 
 class Emotion:
@@ -9,7 +8,6 @@ class Emotion:
         self.text = text
 
     def get_score(article):
-        #nltk.download('averaged_perceptron_tagger')
 
         # version phrases
         cpt_neg = 0

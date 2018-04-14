@@ -2,8 +2,6 @@
 
 class ScoreNormalization:
 
-    file_name = 'app/criterias_calculation/criterias_normalization.txt'
-
     def __init__(self, sql_manager):
         self.sql_manager = sql_manager
         self.min_max_scores = self.sql_manager.get_min_max_scores()

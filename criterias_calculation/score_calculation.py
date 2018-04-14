@@ -1,14 +1,11 @@
-import nltk
-
-from app.criterias_calculation.controversy import Controversy
-from app.criterias_calculation.emotion import Emotion
-from app.criterias_calculation.factuality_opinion import FactualityOpinion
-from app.criterias_calculation.readability import Readability
-from app.criterias_calculation.score_normalization import ScoreNormalization
-from app.criterias_calculation.sql_manager import SQLManager
-from app.criterias_calculation.technicality import Technicality
-from app.criterias_calculation.topicality import Topicality
-from app.criterias_calculation.trust import Trust
+from criterias_calculation.controversy import Controversy
+from criterias_calculation.emotion import Emotion
+from criterias_calculation.factuality_opinion import FactualityOpinion
+from criterias_calculation.score_normalization import ScoreNormalization
+from criterias_calculation.sql_manager import SQLManager
+from criterias_calculation.technicality import Technicality
+from criterias_calculation.trust import Trust
+from readabilityc import ReadabilityC
 
 
 def score_format(score):
@@ -49,7 +46,7 @@ class ScoreCalculation:
             self.calculate_criteria()
 
     def calculate_criteria(self):
-        readability_score, readability_agreement_rate = Readability.get_score(self.article.text)
+        readability_score, readability_agreement_rate = ReadabilityC.get_score(self.article.text)
         controversy_score = Controversy.call(self.article)
         technicality_score = Technicality.get_score(self.article.text)
         trust_score, trust_confidence = Trust.call(self.url)
