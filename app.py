@@ -2,8 +2,11 @@ from flask import Flask, render_template, request
 from newspaper import Article
 from pyfav import get_favicon_url
 from criterias_calculation.score_calculation import ScoreCalculation
+import httplib2
 
+httplib2._MAXHEADERS = 1000
 app = Flask(__name__)
+
 
 
 @app.route('/')

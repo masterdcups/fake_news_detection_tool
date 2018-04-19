@@ -4,6 +4,7 @@ from criterias_calculation.factuality_opinion import FactualityOpinion
 from criterias_calculation.score_normalization import ScoreNormalization
 from criterias_calculation.sql_manager import SQLManager
 from criterias_calculation.technicality import Technicality
+from criterias_calculation.topicality import Topicality
 from criterias_calculation.trust import Trust
 from readabilityc import ReadabilityC
 
@@ -53,7 +54,7 @@ class ScoreCalculation:
         fact_score, opinion_score, fact_sents, opinion_sents, nb_sents = FactualityOpinion.classify(self.article.text)
         emotion_score, nb_neg, nb_pos = Emotion.get_score(self.article.text)
         self.article.nlp()
-        topicality_score = None
+        topicality_score = Topicality.get_score(self.article.keywords)
 
         self.params = [
             ['factuality', fact_score, None, True],
