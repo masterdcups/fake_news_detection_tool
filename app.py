@@ -27,13 +27,6 @@ def index():
 
     favicon_url = get_favicon_url(url) if url is not None else None
 
-    context = {
-        'article': article,
-        'authors': ', '.join(article.authors) if article is not None else '',
-        'params': split_list(params),
-        'score': score,
-        'favicon_url': favicon_url
-    }
     return render_template('index.html',
                            article=article,
                            authors=', '.join(article.authors) if article is not None else '',

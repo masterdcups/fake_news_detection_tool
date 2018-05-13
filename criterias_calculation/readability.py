@@ -251,7 +251,7 @@ def calcul_readability(results):
 
 # renvoie le taux de readability d'un texte
 # plus le taux est élevé plus le texte est facile à lire
-class ReadabilityC:
+class Readability:
 
     def __init__(self, text):
         self.text = text

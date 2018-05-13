@@ -6,7 +6,7 @@ from criterias_calculation.sql_manager import SQLManager
 from criterias_calculation.technicality import Technicality
 from criterias_calculation.topicality import Topicality
 from criterias_calculation.trust import Trust
-from readabilityc import ReadabilityC
+from criterias_calculation.readability import Readability
 
 
 def score_format(score):
@@ -47,7 +47,7 @@ class ScoreCalculation:
             self.calculate_criteria()
 
     def calculate_criteria(self):
-        readability_score, readability_agreement_rate = ReadabilityC.get_score(self.article.text)
+        readability_score, readability_agreement_rate = Readability.get_score(self.article.text)
         controversy_score = Controversy.call(self.article)
         technicality_score = Technicality.get_score(self.article.text)
         trust_score, trust_confidence = Trust.call(self.url)
@@ -57,16 +57,28 @@ class ScoreCalculation:
         topicality_score = Topicality.get_score(self.article.keywords)
 
         self.params = [
-            ['factuality', fact_score, None, True],
+            ['factuality', fact_score, "{} fact sentences found on {} total sentences".format(fact_sents, nb_sents),
+             True],
             ['readability', readability_score,
-             "Agreement rate : {}%".format(score_format(readability_agreement_rate)), False],
-            ['emotion', emotion_score, None, True],
-            ['opinion', opinion_score, None, True],
-            ['controversy', controversy_score, None, True],
+             "Agreement rate : {}%\nAverage of the differents readability formulas, computing ratio between number of "
+             "syllables, word length, sentence length, number of words, number of complex words and sentences.".format(
+                 score_format(readability_agreement_rate)), False],
+            ['emotion', emotion_score,
+             "Counting number of emotional word in a sentence, multiplied with a valuation of the word\nNegative "
+             "emotion : {}%, positive emotion : {}%".format(score_format(nb_neg), score_format(nb_pos)), True],
+            ['opinion', opinion_score,
+             "{} opinion sentences found on {} total sentences".format(opinion_sents, nb_sents), True],
+            ['controversy', controversy_score,
+             "Density of known controversial issues (form the Wikipedia article List_of_controversial_issues) in the "
+             "text",
+             True],
             ['trust', score_format(trust_score),
-             "Confidence score : {}%".format(score_format(trust_confidence)), False],
-            ['technicality', technicality_score, None, True],
-            ['topicality', topicality_score, None, True]
+             "Confidence score : {}%\nUse of the API provided by www.mywot.com about trust of the article website "
+             "domain".format(score_format(trust_confidence)), False],
+            ['technicality', technicality_score, "Rate of technical lexical noun-phrases in the article", True],
+            ['topicality', topicality_score,
+             "Number of top searches of keywords of the article during the last month (on Google)",
+             True]
         ]
 
         self.sql_manager.insert_new_scores(self.url, params_to_dict(self.params))

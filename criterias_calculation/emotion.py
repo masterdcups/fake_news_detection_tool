@@ -1,6 +1,5 @@
 import nltk
-from .senticnet5 import senticnet
-
+from criterias_calculation.AFINN import emotion_tab
 
 class Emotion:
 
@@ -9,39 +8,37 @@ class Emotion:
 
     def get_score(article):
 
-        # version phrases
+        # version AFINN
         cpt_neg = 0
         cpt_pos = 0
+        cpt_mots = 0
         val_phrases = []
 
         tokens = nltk.word_tokenize(article)
         tagged_tokens = nltk.pos_tag(tokens)
         for elem in tagged_tokens:
-            # print(elem)
             if elem[0] == '.':
-                val_phrases.append((cpt_neg,cpt_pos))
+                val_phrases.append((cpt_neg / cpt_mots, cpt_pos / cpt_mots))
                 cpt_pos = 0
                 cpt_neg = 0
-                # print(val_phrases)
-            elif elem[0] in senticnet:
-                # print(elem, senticnet[elem[0]])
-                if senticnet[elem[0]][6] == 'negative':
-                    cpt_neg += float(senticnet[elem[0]][7])
-                else:
-                    cpt_pos += float(senticnet[elem[0]][7])
+            else:
+                cpt_mots += 1
+                if elem[0] in emotion_tab:
+                    if emotion_tab[elem[0]] < 0:
+                        cpt_neg += float(emotion_tab[elem[0]])
+                    else:
+                        cpt_pos += float(emotion_tab[elem[0]])
 
         cpt_neg = 0
         cpt_pos = 0
         for values in val_phrases:
             cpt_neg += values[0]
             cpt_pos += values[1]
-            # print(values, cpt_neg, cpt_pos)
 
         nb_phrases = len(val_phrases)
         cpt_neg = cpt_neg / nb_phrases
         cpt_pos = cpt_pos / nb_phrases
 
         score = abs(cpt_neg) + cpt_pos
-        print(score)
 
-        return score, abs(cpt_neg), cpt_pos
+        return score, (abs(cpt_neg)/score*100.), (cpt_pos/score*100.)
